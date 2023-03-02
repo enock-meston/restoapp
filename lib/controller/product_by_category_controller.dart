@@ -50,12 +50,6 @@ class ProductBYCategoryController extends GetxController {
         );
       }
 
-      // Lets figure it out there two possibilities the first one is you should learn
-      // how to make sets for data and the second is the most easiest thing
-      //you can call the on the drawer table orders tab and send the current tab
-      // along the current category data
-      // yes i see can do everything that possible to do that no problem
-      // show me the drawer page
 
       isLoading.value = false;
       update();

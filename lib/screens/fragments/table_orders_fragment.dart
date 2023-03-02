@@ -1,17 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurentapp/controller/location_controller.dart';
 import 'package:restaurentapp/model/category_model.dart';
 
 import '../../common/navigaton_drawer.dart';
+import '../../controller/table_controller.dart';
+import 'components/table_container.dart';
 
 class TableOrders extends StatelessWidget {
+  final LocationController locationController = Get.put(LocationController());
 
-   final LocationController locationController = Get.put(LocationController());
+  TableController tableApi = TableController();
 
   @override
   Widget build(BuildContext context) {
+    tableApi.fetchTableData(1);
     return Scaffold(
       drawer: Navigation_Drawer(),
       appBar: AppBar(
@@ -24,29 +27,24 @@ class TableOrders extends StatelessWidget {
             body: Column(
               children: [
                 TabBar(
+                    onTap: (int id) {
+                      tableApi.tableList.clear();
+                      tableApi.fetchTableData(id+1);
+                      print('tab is clicked');
+                      print('id is ' + id.toString());
+                    },
                     tabs: locationController.locationList
                         .map((e) => my_tab(
-                      title: e.title.toString(),
-                    ))
+                              title: e.title.toString(),
+                            ))
                         .toList(),
                     isScrollable: true),
                 Expanded(
                   child: TabBarView(
-
-                    children: [
-                      Container(
-                        color: Colors.red,
-                      ),
-                      Container(
-                        color: Colors.green,
-                      ),
-                      Container(
-                        color: Colors.yellow,
-                      ),
-                      Container(
-                        color: Colors.pink,
-                      ),
-                    ],
+                    children:
+                      locationController.locationList
+                          .map((e) => tableContainer(tableApi))
+                          .toList(),
                   ),
                 ),
               ],

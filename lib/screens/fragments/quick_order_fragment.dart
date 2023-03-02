@@ -17,7 +17,7 @@ class _QuickOrderState extends State<QuickOrder> {
   //create controller class // oke
   final CategoryController categoryController = Get.put(CategoryController());
 
-  ProductBYCategoryController productApi=ProductBYCategoryController();
+  ProductBYCategoryController productApi = ProductBYCategoryController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,12 @@ class _QuickOrderState extends State<QuickOrder> {
             body: Column(
               children: [
                 TabBar(
-                  onTap:(int id){
-                    productApi.photoList.clear();
-                    productApi.fetchProductDataByCat(id+1);
-                    print('tab is clicked');
-                    print('id is '+id.toString());
-
-                  },
+                    onTap: (int id) {
+                      productApi.photoList.clear();
+                      productApi.fetchProductDataByCat(id + 1);
+                      print('tab is clicked');
+                      print('id is ' + id.toString());
+                    },
                     tabs: categoryController.categoryList
                         .map((e) => my_tab(
                               title: e.title.toString(),
@@ -49,14 +48,9 @@ class _QuickOrderState extends State<QuickOrder> {
                     isScrollable: true),
                 Expanded(
                   child: TabBarView(
-                    children:
-                      categoryController.categoryList
-                          .map((e) => itemContainer(
-                          productApi
-                      ))
-                         .toList(),
-
-
+                    children: categoryController.categoryList
+                        .map((e) => itemContainer(productApi))
+                        .toList(),
                   ),
                 ),
               ],
@@ -74,8 +68,6 @@ class my_tab extends StatelessWidget {
   const my_tab({super.key, required this.title});
 
   final String title;
-
-
 
   @override
   Widget build(BuildContext context) {

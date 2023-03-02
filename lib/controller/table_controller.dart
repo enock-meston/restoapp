@@ -13,12 +13,14 @@ class TableController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    fetchTableData();
+    // fetchTableData();
   }
 
-  Future<void> fetchTableData() async {
+  Future<void> fetchTableData(int id) async {
+    print('fetchTable function is called');
+    print(id);
     final response = await http
-        .get(Uri.parse(API.getTables));
+        .get(Uri.parse('${API.getTables}?locationId=$id'));
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       // print( "data are : ${jsonData[0]} ");
